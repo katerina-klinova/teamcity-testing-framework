@@ -4,7 +4,6 @@ import com.example.teamcity.api.enums.Role;
 import com.example.teamcity.api.generators.TestDataGenerator;
 import com.example.teamcity.api.requests.checked.CheckedBuildConfigRequest;
 import com.example.teamcity.api.requests.checked.CheckedProjectRequest;
-import com.example.teamcity.api.requests.checked.CheckedUserRequest;
 import com.example.teamcity.api.requests.unchecked.UncheckedBuildConfigRequest;
 import com.example.teamcity.api.requests.unchecked.UncheckedProjectRequest;
 import com.example.teamcity.api.spec.Specifications;
@@ -38,9 +37,11 @@ public class RolesTest extends BaseApiTest{
 
         checkedWithSuperUser.getUserRequest()
                 .create(testData.getUser());
+        testDataCleanUp.add(testData.getUser().getUsername());
 
         var project = new CheckedProjectRequest(Specifications.getSpec().getAuthenticatedSpec(testData.getUser()))
                 .create(testData.getProject());
+        testDataCleanUp.add(project.getId());
 
         softly.assertThat(project.getId())
                 .isEqualTo(testData.getProject().getId());
@@ -52,12 +53,14 @@ public class RolesTest extends BaseApiTest{
 
         checkedWithSuperUser.getProjectRequest()
                 .create(testData.getProject());
+        testDataCleanUp.add(testData.getProject().getId());
 
         testData.getUser().setRoles(
                 TestDataGenerator.generateRole(Role.PROJECT_ADMIN, "p:" + testData.getProject().getId()));
 
         checkedWithSuperUser.getUserRequest()
                 .create(testData.getUser());
+        testDataCleanUp.add(testData.getUser().getUsername());
 
         var buildConfig = new CheckedBuildConfigRequest(Specifications.getSpec().getAuthenticatedSpec(testData.getUser()))
                 .create(testData.getBuildType());
@@ -71,30 +74,28 @@ public class RolesTest extends BaseApiTest{
         var firstTestData = testDataStorage.addTestData();
         var secondTestData = testDataStorage.addTestData();
 
-        var firstUserRequest = new CheckedUserRequest(
-                Specifications.getSpec().getAuthenticatedSpec(firstTestData.getUser()));
-        var secondUserRequest = new CheckedUserRequest(
-                Specifications.getSpec().getAuthenticatedSpec(secondTestData.getUser()));
-
         checkedWithSuperUser.getProjectRequest().create(firstTestData.getProject());
+        testDataCleanUp.add(firstTestData.getProject().getId());
+
         checkedWithSuperUser.getProjectRequest().create(secondTestData.getProject());
+        testDataCleanUp.add(secondTestData.getProject().getId());
 
         firstTestData.getUser().setRoles(TestDataGenerator.
                 generateRole(Role.PROJECT_ADMIN, "p:" + firstTestData.getProject().getId()));
 
         checkedWithSuperUser.getUserRequest().create(firstTestData.getUser());
+        testDataCleanUp.add(firstTestData.getUser().getUsername());
 
         secondTestData.getUser().setRoles(TestDataGenerator.
                 generateRole(Role.PROJECT_ADMIN, "p:" + secondTestData.getProject().getId()));
 
-        checkedWithSuperUser.getUserRequest()
-                .create(secondTestData.getUser());
+        checkedWithSuperUser.getUserRequest().create(secondTestData.getUser());
+        testDataCleanUp.add(secondTestData.getUser().getUsername());
 
         new UncheckedBuildConfigRequest(Specifications.getSpec().getAuthenticatedSpec(secondTestData.getUser()))
                 .create(firstTestData.getBuildType())
-                .then().assertThat().statusCode(HttpStatus.SC_BAD_REQUEST);
-
-//        softly.assertThat(buildConfig.getId())
-//                .isEqualTo(firstTestData.getBuildType().getId());
+                .then().assertThat().statusCode(HttpStatus.SC_FORBIDDEN)
+                .body(Matchers.containsString(
+                        "You do not have enough permissions to access project with internal id: project"));
     }
 }
