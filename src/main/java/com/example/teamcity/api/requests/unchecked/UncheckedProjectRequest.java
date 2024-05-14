@@ -31,7 +31,7 @@ public class UncheckedProjectRequest extends Request implements CrudInterface {
     }
 
     @Override
-    public Object update(String id, Object objj) {
+    public Object update(String id, Object obj) {
         return null;
     }
 

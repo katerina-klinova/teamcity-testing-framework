@@ -18,7 +18,7 @@ public class TestDataGenerator {
 
     public static ServerAuthSettings generateServerAuthSettings() {
         return new ServerAuthSettings().builder()
-                .perProjectPermissions(false)
+                .perProjectPermissions(true)
                 .modules(AuthModules.builder()
                         .module(Arrays.asList(
                                 AuthModule.builder()
@@ -67,7 +67,7 @@ public class TestDataGenerator {
 
     public static TestData generate(){
         var user = User.builder()
-                .username(RandomData.getString())
+                .username("user_" + RandomData.getString())
                 .password(RandomData.getString())
                 .email(RandomData.getString() + "@gmail.com")
                 .roles(Roles.builder()
@@ -84,7 +84,7 @@ public class TestDataGenerator {
                         .locator("_Root")
                         .build())
                 .name(RandomData.getString())
-                .id(RandomData.getString())
+                .id("project_" + RandomData.getString())
                 .copyAllAssociatedSettings(true)
                 .build();
 
