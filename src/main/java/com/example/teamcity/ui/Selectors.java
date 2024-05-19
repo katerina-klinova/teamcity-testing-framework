@@ -19,4 +19,8 @@ public class Selectors {
     public static ByAttribute byClass(String value){
         return new ByAttribute("class", value);
     }
+
+    public static ByAttribute byHref(String value){
+        return new ByAttribute("href", value);
+    }
 }
