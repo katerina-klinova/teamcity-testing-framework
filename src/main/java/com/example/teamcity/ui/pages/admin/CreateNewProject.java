@@ -33,6 +33,7 @@ public class CreateNewProject extends Page {
         waitUntilElementIsVisible(urlInput);
         urlInput.sendKeys(url);
         submit();
+        waitUntilDataIsSaved();
         return this;
     }
 
@@ -43,6 +44,7 @@ public class CreateNewProject extends Page {
         buildTypeNameInput.clear();
         buildTypeNameInput.sendKeys(buildTypeName);
         submit();
+        waitUntilPageIsLoaded();
     }
 
     public void setupProjectManually(String projectName, String projectId){
@@ -53,5 +55,6 @@ public class CreateNewProject extends Page {
         projectIdInput.clear();
         projectIdInput.sendKeys(projectId);
         submit();
+        waitUntilPageIsLoaded();
     }
 }

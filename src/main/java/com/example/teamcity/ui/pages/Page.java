@@ -32,7 +32,7 @@ public abstract class Page {
     }
 
     public void waitUntilElementIsVisible(SelenideElement element){
-        element.shouldBe(Condition.visible, Duration.ofSeconds(5));
+        element.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 
     public <T extends PageElement> List<T> generatePageElements(

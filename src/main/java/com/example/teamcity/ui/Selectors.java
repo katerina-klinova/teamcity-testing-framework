@@ -1,6 +1,7 @@
 package com.example.teamcity.ui;
 
 import com.codeborne.selenide.selector.ByAttribute;
+import com.codeborne.selenide.selector.ByText;
 
 public class Selectors {
 
@@ -22,5 +23,9 @@ public class Selectors {
 
     public static ByAttribute byHref(String value){
         return new ByAttribute("href", value);
+    }
+
+    public static ByText byText(String text){
+        return new ByText(text);
     }
 }
