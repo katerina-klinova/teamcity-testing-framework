@@ -7,7 +7,25 @@ import org.testng.annotations.Test;
 
 public class CreateNewProjectTest extends BaseUiTest {
     @Test
-    public void authorizedUserShouldBeAbleToCreateNewProject(){
+    public void authorizedUserShouldBeAbleToCreateNewProjectFromRepository(){
+        var testData = testDataStorage.addTestData();
+        var url = "https://github.com/AlexPshe/spring-core-for-qa";
+
+        loginAsUser(testData.getUser());
+
+        new CreateNewProject()
+                .open(testData.getProject().getParentProject().getLocator())
+                .createProjectByUrl(url)
+                .setupProject(testData.getProject().getName(), testData.getBuildType().getName());
+
+        new ProjectsPage().open()
+                .getSubprojects()
+                .stream().reduce((first, second) -> second).get()
+                .getHeader().shouldHave(Condition.text(testData.getProject().getName()));
+    }
+
+    @Test
+    public void authorizedUserShouldBeAbleToCreateNewProjectManually(){
         var testData = testDataStorage.addTestData();
         var url = "https://github.com/AlexPshe/spring-core-for-qa";
 
