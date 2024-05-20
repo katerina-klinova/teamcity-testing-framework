@@ -13,29 +13,33 @@ import java.util.function.Function;
 
 import static com.codeborne.selenide.Selenide.element;
 
- public abstract class Page {
-     private SelenideElement submitButton = element(Selectors.byType("submit"));
-     protected SelenideElement savingWaitingMarker = element(Selectors.byType("saving"));
-     protected static SelenideElement pageLoadingMarker = element(Selectors.byDataTest("ring-loader"));
+public abstract class Page {
+    private SelenideElement submitButton = element(Selectors.byType("submit"));
+    protected SelenideElement savingWaitingMarker = element(Selectors.byType("saving"));
+    protected static SelenideElement pageLoadingMarker = element(Selectors.byDataTest("ring-loader"));
 
-     public void submit(){
-         submitButton.click();
-         waitUntilDataIsSaved();
-     }
+    public void submit() {
+        submitButton.click();
+        waitUntilDataIsSaved();
+    }
 
-     public void waitUntilPageIsLoaded(){
-         pageLoadingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(1));
-     }
+    public void waitUntilPageIsLoaded() {
+        pageLoadingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(1));
+    }
 
-    public void waitUntilDataIsSaved(){
+    public void waitUntilDataIsSaved() {
         savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(30));
     }
 
-     public  <T extends PageElement> List<T> generatePageElements(
-             ElementsCollection collection,
-             Function<SelenideElement, T> creator) {
-         var elements = new ArrayList<T>();
-         collection.forEach(webElement -> elements.add(creator.apply(webElement)));
-         return elements;
-     }
- }
+    public void waitUntilElementIsVisible(SelenideElement element){
+        element.shouldBe(Condition.visible, Duration.ofSeconds(10));
+    }
+
+    public <T extends PageElement> List<T> generatePageElements(
+            ElementsCollection collection,
+            Function<SelenideElement, T> creator) {
+        var elements = new ArrayList<T>();
+        collection.forEach(webElement -> elements.add(creator.apply(webElement)));
+        return elements;
+    }
+}
