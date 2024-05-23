@@ -17,6 +17,7 @@ public class StartUpPage extends Page{
     private SelenideElement acceptLicence = element(Selectors.byId("accept"));
 
     public StartUpPage open(){
+        waitUntilPageIsLoaded();
         Selenide.open("/");
         return this;
     }
