@@ -35,6 +35,10 @@ public abstract class Page {
         element.shouldBe(Condition.visible, Duration.ofSeconds(10));
     }
 
+    public void waitUntilElementIsEnabled(SelenideElement element){
+        element.shouldBe(Condition.enabled, Duration.ofSeconds(60));
+    }
+
     public <T extends PageElement> List<T> generatePageElements(
             ElementsCollection collection,
             Function<SelenideElement, T> creator) {
