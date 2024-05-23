@@ -74,10 +74,10 @@ echo "Start selenoid-ui"
 
 docker run -d--name $selenoid_ui_container_name                                 \
             -p 80:8080 aerokube/selenoid-ui:latest-release --selenoid-uri "http://$ip:4444"
-
-################################
-echo "Setup teamcity server"
-mvn clean test -Dtest=SetupTest#startUpTest
+#
+#################################
+#echo "Setup teamcity server"
+#mvn clean test -Dtest=SetupTest#startUpTest
 
 ################################
 echo "Setup teamcity server"
