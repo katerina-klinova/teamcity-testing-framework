@@ -58,13 +58,17 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
+      - name: Give execute permissions to mvnw
+        run: chmod +x ./mvnw
+
       - name: Set up TeamCity server
-        # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
+      # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
         run: ./mvnw clean test -Dtest=SetupFirstStartTest#setupTeamCityServerTest
 
       - name: Set up superUserToken environment variable
-        # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
+      # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
         run: echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
+
       - name: Set up superUserToken config property
         run: echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
 
@@ -80,5 +84,5 @@ jobs:
         run: ./mvnw test -Dtest=SetupFirstStartTest#setupTeamCityAgentTest
 
       - name: Run tests
-        # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
+      # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
         run: ./mvnw test -Dgroups=Regression
