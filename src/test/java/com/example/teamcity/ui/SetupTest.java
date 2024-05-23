@@ -18,11 +18,11 @@ public class SetupTest extends BaseUiTest{
         new CreateAdministratorAccount().open()
                 .followLogInAsSuperUserLink();
 
-        new LogInAsSuperUser().logInWithAuthToken();
+        new LogInAsSuperUser().open().logInWithAuthToken();
 
         new AgentsUnauthorized().open()
                 .openUnauthorizedAgent();
 
-        new Agent().authorizeAgent();
+        new Agent().open().authorizeAgent();
     }
 }
