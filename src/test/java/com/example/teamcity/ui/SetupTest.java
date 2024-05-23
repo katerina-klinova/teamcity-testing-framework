@@ -6,14 +6,14 @@ import org.testng.annotations.Test;
 
 public class SetupTest extends BaseUiTest{
 
-    @Test
+    @Test(groups = {"setup"})
     public void startUpTest(){
         new StartUpPage().open()
                 .setupTeamCityServer()
                 .getHeader().shouldHave(Condition.text("Create Account Administrator"));
     }
 
-    @Test
+    @Test(groups = {"setup"})
     public void setupTeamCityAgentTest(){
         new CreateAdministratorAccount().open()
                 .followLogInAsSuperUserLink();
