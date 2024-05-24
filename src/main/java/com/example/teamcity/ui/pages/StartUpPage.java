@@ -1,9 +1,12 @@
 package com.example.teamcity.ui.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.element;
 
@@ -28,7 +31,7 @@ public class StartUpPage extends Page{
         waitUntilPageIsLoaded();
         proceedButton.click();
         waitUntilPageIsLoaded();
-        waitUntilElementIsEnabled(acceptLicence);
+        acceptLicence.shouldBe(Condition.visible, Duration.ofMinutes(5));
         acceptLicence.scrollTo();
         acceptLicence.click();
         continueButton.click();

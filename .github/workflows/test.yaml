@@ -16,14 +16,14 @@ jobs:
       - name: Install ifconfig
         run: sudo apt-get update && sudo apt-get install -y net-tools
 
-      - name: ifconfig output
-        run:  |
-          ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1
+#      - name: ifconfig output
+#        run:  |
+#          ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1
 
       - name: Setup host environment variables
         run: |
           echo "HOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)" >> $GITHUB_ENV
-          echo "HOST = $HOST"
+ #         echo "HOST = $HOST"
 
       - name: Host is
         run: |
@@ -52,13 +52,13 @@ jobs:
           -p 4444:4444 \
           aerokube/selenoid:latest-release
           
-      - name: List Docker Containers
-        run: docker ps -a
+#      - name: List Docker Containers
+#        run: docker ps -a
 
-      - name: Check Selenoid Logs
-        run: |
-          sleep 10 
-          docker logs selenoid || echo "No logs available for Selenoid container"
+#      - name: Check Selenoid Logs
+#        run: |
+#          sleep 10
+#          docker logs selenoid || echo "No logs available for Selenoid container"
 
 #       В этом степе нет смысла, так как через GitHub Actions нет доступа к Selenoid UI. Но зато это полезно при локальном запуске через act, для отладки
       - name: Run Selenoid UI
@@ -95,7 +95,7 @@ jobs:
         run: ./mvnw clean test -Dtest=SetupTest#startUpTest
 
       - name: Upload Test Results
-        if: failure()
+        if: always()
         uses: actions/upload-artifact@v3
         with:
             name: test-results
@@ -120,6 +120,11 @@ jobs:
         run: |
           echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
           echo "superUserToken=$SUPER_USER_TOKEN"
+
+      - name: superUserToken is
+        run: |
+          docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1 | awk '{print $6}')
+          echo $SUPER_USER_TOKEN
 
 #      - name: Run TeamCity agent
 #        run: |
