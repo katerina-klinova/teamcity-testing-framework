@@ -53,10 +53,10 @@ jobs:
       - name: PWD
         run: pwd
 
-      - name: cat $PWD/config/browsers.json
-        run: cat $PWD/config/browsers.json
+      - name: ls
+        run: ls -la
 
-      - name: cat $PWD/config/browsers.json
+      - name: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework//config/browsers.json
         run: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/config/browsers.json
 
       - name: Run Selenoid
