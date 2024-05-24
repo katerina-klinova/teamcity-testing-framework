@@ -53,8 +53,11 @@ jobs:
       - name: PWD
         run: pwd
 
-      - name: /config/browsers.json
-        run: $PWD/config/browsers.json
+      - name: cat $PWD/config/browsers.json
+        run: cat $PWD/config/browsers.json
+
+      - name: cat $PWD/config/browsers.json
+        run: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/config/browsers.json
 
       - name: Run Selenoid
         # Флаг -d запускает контейнер в фоновом режиме (так как, например, контейнер с сервером не имеет окончания, он просто всегда включен,
