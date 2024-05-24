@@ -56,8 +56,8 @@ jobs:
       - name: ls
         run: ls -la
 
-      - name: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework//config/browsers.json
-        run: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/config/browsers.json
+      - name: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/selenoid/config/browsers.json
+        run: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/selenoid/config/browsers.json
 
       - name: Run Selenoid
         # Флаг -d запускает контейнер в фоновом режиме (так как, например, контейнер с сервером не имеет окончания, он просто всегда включен,
