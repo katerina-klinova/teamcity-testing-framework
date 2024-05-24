@@ -30,7 +30,7 @@ jobs:
 #        run: echo "host=$HOST:8111" >> src/main/resources/config.properties
          echo "host=$HOST:8111" > src/main/resources/config.properties
          echo "superUserToken=YOUR_SUPER_USER_TOKEN" >> src/main/resources/config.properties
-          echo "remote=http://localhost:4444/wd/hub" >> src/main/resources/config.properties
+         echo "remote=http://localhost:4444/wd/hub" >> src/main/resources/config.properties
          echo "browser=firefox" >> src/main/resources/config.properties
          cat src/main/resources/config.properties
 
