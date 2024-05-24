@@ -94,20 +94,32 @@ jobs:
       # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
         run: ./mvnw clean test -Dtest=SetupTest#startUpTest
 
-#      - name: Set up superUserToken environment variable
+      - name: Upload Test Results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+            name: test-results
+            path: |
+              target/surefire-reports/
+              target/surefire-reports/*.png
+              target/surefire-reports/*.html
+            retention-days: 5
+
+      - name: Set up superUserToken environment variable
       # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
-      #  run: echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
-#        run: |
+        run: |
+         echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
+#
 #          TOKEN_LINE=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1)
 #          echo "TOKEN_LINE: $TOKEN_LINE"
 #          SUPER_USER_TOKEN=$(echo $TOKEN_LINE | awk '{print $6}')
 #          echo "SUPER_USER_TOKEN=$SUPER_USER_TOKEN" >> $GITHUB_ENV
 #          echo "Extracted SUPER_USER_TOKEN: $SUPER_USER_TOKEN"
 
-#      - name: Set up superUserToken config property
-#        run: |
-#          echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
-#          echo "superUserToken=$SUPER_USER_TOKEN"
+      - name: Set up superUserToken config property
+        run: |
+          echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
+          echo "superUserToken=$SUPER_USER_TOKEN"
 
 #      - name: Run TeamCity agent
 #        run: |
