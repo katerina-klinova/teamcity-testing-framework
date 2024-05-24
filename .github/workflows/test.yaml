@@ -89,10 +89,15 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
+      - name: Check Selenoid Logs
+        run: |
+          sleep 10 
+          docker logs selenoid || echo "No logs available for Selenoid container"
+
       - name: Verify TeamCity Server is Running
         run: |
-          sleep 30  # Wait for TeamCity server to start
-          curl -v http://localhost:8111 || echo "TeamCity server is not accessible"
+          curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
+          curl -v http://$HOST:4444/wd/hub || echo "http://$HOST:4444/wd/hub is not accessible"
 
       - name: Give execute permissions to mvnw
         run: chmod +x ./mvnw
