@@ -89,37 +89,33 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
-      - name: Check Selenoid Logs
-        run: |
-          sleep 10 
-          docker logs selenoid || echo "No logs available for Selenoid container"
-
       - name: Check Selenoid and TeamCity Endpoints
         run: |
           curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
           curl -v http://localhost:4444/wd/hub || echo "http://localhost:4444/wd/hub is not accessible"
+          curl -v http://localhost:4444/
 
-      - name: Give execute permissions to mvnw
-        run: chmod +x ./mvnw
+#      - name: Give execute permissions to mvnw
+#        run: chmod +x ./mvnw
 
-      - name: Set up TeamCity server
+#      - name: Set up TeamCity server
       # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
-        run: ./mvnw clean test -Dtest=SetupTest#startUpTest
+#        run: ./mvnw clean test -Dtest=SetupTest#startUpTest
 
-      - name: Set up superUserToken environment variable
+#      - name: Set up superUserToken environment variable
       # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
       #  run: echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
-        run: |
-          TOKEN_LINE=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1)
-          echo "TOKEN_LINE: $TOKEN_LINE"
-          SUPER_USER_TOKEN=$(echo $TOKEN_LINE | awk '{print $6}')
-          echo "SUPER_USER_TOKEN=$SUPER_USER_TOKEN" >> $GITHUB_ENV
-          echo "Extracted SUPER_USER_TOKEN: $SUPER_USER_TOKEN"
+#        run: |
+#          TOKEN_LINE=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1)
+#          echo "TOKEN_LINE: $TOKEN_LINE"
+#          SUPER_USER_TOKEN=$(echo $TOKEN_LINE | awk '{print $6}')
+#          echo "SUPER_USER_TOKEN=$SUPER_USER_TOKEN" >> $GITHUB_ENV
+#          echo "Extracted SUPER_USER_TOKEN: $SUPER_USER_TOKEN"
 
-      - name: Set up superUserToken config property
-        run: |
-          echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
-          echo "superUserToken=$SUPER_USER_TOKEN"
+#      - name: Set up superUserToken config property
+#        run: |
+#          echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
+#          echo "superUserToken=$SUPER_USER_TOKEN"
 
 #      - name: Run TeamCity agent
 #        run: |
