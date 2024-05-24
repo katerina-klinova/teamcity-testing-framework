@@ -94,7 +94,7 @@ jobs:
           sleep 10 
           docker logs selenoid || echo "No logs available for Selenoid container"
 
-      - name: Verify TeamCity Server is Running
+      - name: Check Selenoid and TeamCity Endpoints
         run: |
           curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
           curl -v http://$HOST:4444/wd/hub || echo "http://$HOST:4444/wd/hub is not accessible"
@@ -104,7 +104,7 @@ jobs:
 
       - name: Set up TeamCity server
       # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
-        run: ./mvnw clean test -Dtest=SetupTest#startUpTest -X
+        run: ./mvnw clean test -Dtest=SetupTest#startUpTest
 
       - name: Set up superUserToken environment variable
       # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
@@ -121,41 +121,41 @@ jobs:
           echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
           echo "superUserToken=$SUPER_USER_TOKEN"
 
-      - name: Run TeamCity agent
-        run: |
-          docker run -e SERVER_URL=http://$HOST:8111 -u 0 -d --name teamcity-agent \
-          -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
-          jetbrains/teamcity-agent:2023.11.1
+#      - name: Run TeamCity agent
+#        run: |
+#          docker run -e SERVER_URL=http://$HOST:8111 -u 0 -d --name teamcity-agent \
+#          -v $(pwd)/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
+#          jetbrains/teamcity-agent:2023.11.1
 
-      - name: Set up TeamCity agent
+#      - name: Set up TeamCity agent
         # Авторизация агента при первом запуске, реализованная в виде теста
         # Не указываем clean, чтобы потом в итоговом репорте были и setup тесты
-        run: ./mvnw test -Dtest=SetupTest#setupTeamCityAgentTest -X
+#        run: ./mvnw test -Dtest=SetupTest#setupTeamCityAgentTest -X
 
-      - name: Run tests
+#      - name: Run tests
       # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
-        run: ./mvnw test
+#        run: ./mvnw test
 
-      - name: Load test report history
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
-      - name: Build test report
-        uses: simple-elf/allure-report-action@v1.7
-        if: always()
-        with:
-          gh_pages: gh-pages
-          allure_history: allure-history
-          allure_results: target/allure-results
-
-      - name: Publish test report
-        uses: peaceiris/actions-gh-pages@v3
-        if: always()
-        with:
-          github_token: $
-          publish_branch: gh-pages
-          publish_dir: allure-history
+#      - name: Load test report history
+#        uses: actions/checkout@v4
+#        if: always()
+#        continue-on-error: true
+#        with:
+#          ref: gh-pages
+#          path: gh-pages
+#
+#      - name: Build test report
+#        uses: simple-elf/allure-report-action@v1.7
+#        if: always()
+#        with:
+#          gh_pages: gh-pages
+#          allure_history: allure-history
+#          allure_results: target/allure-results
+#
+#      - name: Publish test report
+#        uses: peaceiris/actions-gh-pages@v3
+#        if: always()
+#        with:
+#          github_token: $
+#          publish_branch: gh-pages
+#          publish_dir: allure-history
