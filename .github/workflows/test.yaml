@@ -87,12 +87,12 @@ jobs:
           curl -v http://localhost:4444/wd/hub || echo "http://localhost:4444/wd/hub is not accessible"
           curl -v http://localhost:4444/
 
-#      - name: Give execute permissions to mvnw
-#        run: chmod +x ./mvnw
+      - name: Give execute permissions to mvnw
+        run: chmod +x ./mvnw
 
-#      - name: Set up TeamCity server
+      - name: Set up TeamCity server
       # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
-#        run: ./mvnw clean test -Dtest=SetupTest#startUpTest
+        run: ./mvnw clean test -Dtest=SetupTest#startUpTest
 
 #      - name: Set up superUserToken environment variable
       # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
