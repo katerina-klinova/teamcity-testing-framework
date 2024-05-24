@@ -42,11 +42,10 @@ jobs:
       - name: Pull Selenoid Firefox
         run: docker pull selenoid/vnc:firefox_89.0
 
-      - name: Check Selenoid Container Status
-        run: docker ps -a
-
-      - name: Check Selenoid Logs
-        run: docker logs selenoid
+      - name: Ensure Docker Daemon is Running
+        run: |
+          sudo systemctl start docker
+          sudo systemctl status docker
 
       - name: Run Selenoid
         # Флаг -d запускает контейнер в фоновом режиме (так как, например, контейнер с сервером не имеет окончания, он просто всегда включен,
@@ -57,6 +56,12 @@ jobs:
           -v $(pwd)/config/:/etc/selenoid/:ro \
           -p 4444:4444 \
           aerokube/selenoid
+          
+      - name: List Docker Containers
+        run: docker ps -a
+
+      - name: Check Selenoid Logs
+        run: docker logs selenoid || echo "No logs available for Selenoid container"
 
       # В этом степе нет смысла, так как через GitHub Actions нет доступа к Selenoid UI. Но зато это полезно при локальном запуске через act, для отладки
       - name: Run Selenoid UI
