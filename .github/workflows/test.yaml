@@ -109,7 +109,7 @@ jobs:
 
       - name: superUserToken is
         run: |
-          docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1 | awk '{print $6}')
+          docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1
           echo $SUPER_USER_TOKEN
 
 #      - name: Run TeamCity agent
