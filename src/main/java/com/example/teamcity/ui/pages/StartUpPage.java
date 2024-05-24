@@ -31,7 +31,7 @@ public class StartUpPage extends Page{
 //        acceptLicence.shouldBe(Condition.enabled, Duration.ofMinutes(5));
 //        acceptLicence.scrollTo();
 //        acceptLicence.click();
-//        continueButton.click();
+        continueButton.click();
         return this;
     }
 }

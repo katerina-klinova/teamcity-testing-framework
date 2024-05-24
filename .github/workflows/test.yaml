@@ -86,9 +86,9 @@ jobs:
         with:
             name: test-results
             path: |
-              target/surefire-reports/
+#              target/surefire-reports/
               target/surefire-reports/*.png
-              target/surefire-reports/*.html
+#              target/surefire-reports/*.html
             retention-days: 5
 
       - name: Set up superUserToken environment variable
