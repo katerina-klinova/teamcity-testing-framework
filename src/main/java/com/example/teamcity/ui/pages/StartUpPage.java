@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.element;
 @Getter
 public class StartUpPage extends Page{
 
-    private SelenideElement header = element(Selectors.byId("proceedButton"));
+    private SelenideElement header = element(Selectors.byId("header"));
     private SelenideElement continueButton = element(Selectors.byName("Continue"));
     private SelenideElement proceedButton = element(Selectors.byId("proceedButton"));
     private SelenideElement restoreFromBackupButton = element(Selectors.byId("restoreButton"));
