@@ -65,7 +65,7 @@ jobs:
         run: |
           docker run --name selenoid --network selenoid-net \
           -v /var/run/docker.sock:/var/run/docker.sock \
-          -v $(pwd)/config/:/etc/selenoid/:ro \
+          -v /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/selenoid/config/:/etc/selenoid/:ro \
           -p 4444:4444 \
           aerokube/selenoid:latest-release
           
