@@ -10,7 +10,7 @@ public class SetupTest extends BaseUiTest{
     public void startUpTest(){
         new StartUpPage().open()
                 .setupTeamCityServer()
-                .getHeader().shouldHave(Condition.text("Create Account Administrator"));
+                .getHeader().shouldHave(Condition.text("Create Administrator Account"));
     }
 
     @Test(groups = {"setup"})
