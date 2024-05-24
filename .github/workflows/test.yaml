@@ -68,14 +68,14 @@ jobs:
           sleep 10 
           docker logs selenoid || echo "No logs available for Selenoid container"
 
-      # В этом степе нет смысла, так как через GitHub Actions нет доступа к Selenoid UI. Но зато это полезно при локальном запуске через act, для отладки
-#      - name: Run Selenoid UI
-#        run: |
-#          docker run -d --name selenoid-ui --network selenoid-net \
-#          -p 8080:8080 \
-#          aerokube/selenoid-ui \
-#          --selenoid-uri http://$HOST:4444
-#
+#       В этом степе нет смысла, так как через GitHub Actions нет доступа к Selenoid UI. Но зато это полезно при локальном запуске через act, для отладки
+      - name: Run Selenoid UI
+        run: |
+          docker run -d --name selenoid-ui --network selenoid-net \
+          -p 8080:8080 \
+          aerokube/selenoid-ui \
+          --selenoid-uri http://$HOST:4444
+
       - name: Run TeamCity server
         # Флаг -u 0 запускает контейнер от имени root, чтобы был доступ на запись файлов в директории, указанные в volume.
         # По-хорошему, надо делать chown -R 1000:1000 на эти директории и запускать контейнер без этого флага,
