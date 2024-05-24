@@ -50,15 +50,6 @@ jobs:
       - name: Create Docker Network
         run: docker network create selenoid-net
 
-      - name: PWD
-        run: pwd
-
-      - name: ls
-        run: ls -la
-
-      - name: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/selenoid/config/browsers.json
-        run: cat /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/selenoid/config/browsers.json
-
       - name: Run Selenoid
         # Флаг -d запускает контейнер в фоновом режиме (так как, например, контейнер с сервером не имеет окончания, он просто всегда включен,
         # и если мы без этого флага в него перейдем, то никогда не сможем перешагнуть к следующему степу
@@ -73,16 +64,18 @@ jobs:
         run: docker ps -a
 
       - name: Check Selenoid Logs
-        run: docker logs selenoid || echo "No logs available for Selenoid container"
+        run: |
+          sleep 10 
+          docker logs selenoid || echo "No logs available for Selenoid container"
 
       # В этом степе нет смысла, так как через GitHub Actions нет доступа к Selenoid UI. Но зато это полезно при локальном запуске через act, для отладки
-      - name: Run Selenoid UI
-        run: |
-          docker run -d --name selenoid-ui --network selenoid-net \
-          -p 8080:8080 \
-          aerokube/selenoid-ui \
-          --selenoid-uri http://$HOST:4444
-
+#      - name: Run Selenoid UI
+#        run: |
+#          docker run -d --name selenoid-ui --network selenoid-net \
+#          -p 8080:8080 \
+#          aerokube/selenoid-ui \
+#          --selenoid-uri http://$HOST:4444
+#
       - name: Run TeamCity server
         # Флаг -u 0 запускает контейнер от имени root, чтобы был доступ на запись файлов в директории, указанные в volume.
         # По-хорошему, надо делать chown -R 1000:1000 на эти директории и запускать контейнер без этого флага,
@@ -91,8 +84,8 @@ jobs:
         # чтобы в рамках этого задания не тратить время на фикс подобных проблем.
         run: |
           docker run -u 0 -d --name teamcity-server  --network selenoid-net \
-          -v $(pwd)/tmp/teamcity_server/datadir:/data/teamcity_server/datadir \
-          -v $(pwd)/tmp/teamcity_server/logs:/opt/teamcity/logs \
+          -v /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/tmp/teamcity_server/datadir:/data/teamcity_server/datadir \
+          -v /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/tmp/teamcity_server/logs:/opt/teamcity/logs \
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
