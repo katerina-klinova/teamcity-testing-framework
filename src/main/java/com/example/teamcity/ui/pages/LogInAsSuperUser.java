@@ -10,12 +10,11 @@ import lombok.Getter;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.element;
-import static com.codeborne.selenide.Selenide.webdriver;
 
 public class LogInAsSuperUser extends Page{
     private SelenideElement authTokenInput = element(Selectors.byId("password"));
     @Getter
-    private SelenideElement welcomeText = element(Selectors.byText("Welcome to TeamCity"));//byClass("h1"));
+    private SelenideElement welcomeText = element(Selectors.byText("Welcome to TeamCity"));
 
     public LogInAsSuperUser open(){
         Selenide.open("/login.html?super=1");
@@ -29,7 +28,6 @@ public class LogInAsSuperUser extends Page{
         authTokenInput.sendKeys(Config.getProperty("superUserToken"));
         submit();
         waitUntilDataIsSaved();
-
         welcomeText.shouldHave(Condition.text("Welcome to TeamCity"), Duration.ofMinutes(1));
         return this;
     }

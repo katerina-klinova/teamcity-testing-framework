@@ -25,7 +25,6 @@ jobs:
           echo $HOST
 
       - name: Set up config properties
-#        run: echo "host=$HOST:8111" >> src/main/resources/config.properties
         run: | 
           echo "host=$HOST:8111" > src/main/resources/config.properties
           echo "remote=http://localhost:4444/wd/hub" >> src/main/resources/config.properties
@@ -80,7 +79,6 @@ jobs:
       # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
         run: ./mvnw --quiet clean test -Dtest=SetupTest#startUpTest
 
-#
 #      - name: Run TeamCity agent
 #        run: |
 #          docker run -e SERVER_URL=http://$HOST:8111 -u 0 -d --name teamcity-agent \
@@ -103,12 +101,6 @@ jobs:
           echo "superUserToken=$SUPER_USER_TOKEN" >> src/main/resources/config.properties
           echo "superUserToken=$SUPER_USER_TOKEN"
 
-#      - name: superUserToken is
-#        run: |
-#          docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1
-#          echo $SUPER_USER_TOKEN
-
-#
 #      - name: Set up TeamCity agent
 #        # Авторизация агента при первом запуске, реализованная в виде теста
 #        # Не указываем clean, чтобы потом в итоговом репорте были и setup тесты

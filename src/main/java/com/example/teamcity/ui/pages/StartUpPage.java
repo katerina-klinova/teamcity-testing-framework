@@ -13,7 +13,6 @@ import static com.codeborne.selenide.Selenide.element;
 @Getter
 public class StartUpPage extends Page{
 
-    //private SelenideElement header = element(Selectors.byId("header"));//Create Administrator Account
     private SelenideElement continueButton = element(Selectors.byName("Continue"));
     private SelenideElement proceedButton = element(Selectors.byId("proceedButton"));
     private SelenideElement restoreFromBackupButton = element(Selectors.byId("restoreButton"));
@@ -37,7 +36,6 @@ public class StartUpPage extends Page{
         waitUntilElementIsEnabled(continueButton);
         continueButton.click();
         waitUntilPageIsLoaded();
-      //  header.shouldHave(Condition.text("Create Administrator Account"), Duration.ofMinutes(5));
         return this;
     }
 }
