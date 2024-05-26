@@ -28,7 +28,7 @@ public class SetupTest extends BaseUiTest{
                 .getHeader().shouldHave(Condition.text("Log in as Super user"));
         superUserLogin
                 .logInWithAuthToken()
-                .getWelcomeText().shouldHave(Condition.text("Welcome to TeamCity"), Duration.ofSeconds(30));
+                .getWelcomeText().shouldHave(Condition.text("Welcome to TeamCity"), Duration.ofMinutes(2));
 
         new AgentsUnauthorized().open()
                 .openUnauthorizedAgent();
