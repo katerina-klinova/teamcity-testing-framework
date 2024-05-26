@@ -31,7 +31,7 @@ public class StartUpPage extends Page{
         waitUntilPageIsLoaded();
         proceedButton.click();
         waitUntilPageIsLoaded();
-        acceptLicence.shouldBe(Condition.enabled, Duration.ofMinutes(5));
+        acceptLicence.shouldBe(Condition.enabled, Duration.ofMinutes(7));
         acceptLicence.scrollTo();
         acceptLicence.click();
         continueButton.click();
