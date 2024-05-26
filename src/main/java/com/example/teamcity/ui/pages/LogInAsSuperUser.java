@@ -17,6 +17,7 @@ public class LogInAsSuperUser extends Page{
     }
 
     public void logInWithAuthToken(){
+        waitUntilPageIsLoaded();
         waitUntilElementIsVisible(authTokenInput);
         authTokenInput.sendKeys(Config.getProperty("superUserToken"));
         submit();

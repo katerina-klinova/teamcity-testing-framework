@@ -19,6 +19,7 @@ public class AgentsUnauthorized extends Page{
     }
 
     public void openUnauthorizedAgent(){
+        waitUntilPageIsLoaded();
         agentLink.shouldBe(Condition.visible, Duration.ofMinutes(2));
         agentLink.click();
     }
