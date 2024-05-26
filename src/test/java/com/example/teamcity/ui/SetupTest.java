@@ -15,10 +15,11 @@ public class SetupTest extends BaseUiTest{
 
     @Test(groups = {"setup"})
     public void setupTeamCityAgentTest(){
-        new CreateAdministratorAccount().open()
+        new CreateAdministratorAccount()//.open()
                 .followLogInAsSuperUserLink();
 
-        new LogInAsSuperUser().open().logInWithAuthToken();
+        new LogInAsSuperUser()//.open()
+                .logInWithAuthToken();
 
         new AgentsUnauthorized().open()
                 .openUnauthorizedAgent();
