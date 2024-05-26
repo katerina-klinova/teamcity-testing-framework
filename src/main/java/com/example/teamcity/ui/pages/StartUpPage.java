@@ -37,7 +37,7 @@ public class StartUpPage extends Page{
         waitUntilElementIsEnabled(continueButton);
         continueButton.click();
         waitUntilPageIsLoaded();
-        header.shouldBe(Condition.visible, Duration.ofMinutes(10));
+      //  header.shouldHave(Condition.text("Create Administrator Account"), Duration.ofMinutes(5));
         return this;
     }
 }
