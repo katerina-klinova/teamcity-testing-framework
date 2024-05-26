@@ -35,7 +35,6 @@ public class StartUpPage extends Page{
         acceptLicence.scrollTo();
         acceptLicence.click();
         continueButton.click();
-       // Selenide.sleep(30000);
         header.shouldBe(Condition.visible, Duration.ofMinutes(3));
         return this;
     }
