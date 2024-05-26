@@ -35,6 +35,7 @@ public class StartUpPage extends Page{
         acceptLicence.scrollTo();
         acceptLicence.click();
         continueButton.click();
+        waitUntilPageIsLoaded();
         return this;
     }
 }
