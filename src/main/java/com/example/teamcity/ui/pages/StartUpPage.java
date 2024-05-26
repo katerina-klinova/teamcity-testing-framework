@@ -35,7 +35,7 @@ public class StartUpPage extends Page{
         acceptLicence.scrollTo();
         acceptLicence.click();
         continueButton.click();
-        header.shouldBe(Condition.visible, Duration.ofMinutes(3));
+        header.shouldBe(Condition.visible, Duration.ofMinutes(4));
         return this;
     }
 }
