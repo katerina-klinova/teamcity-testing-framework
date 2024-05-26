@@ -21,7 +21,7 @@ public class SetupTest extends BaseUiTest{
         new LogInAsSuperUser().open()
                 .logInWithAuthToken();
 
-        new AgentsUnauthorized()//.open()
+        new AgentsUnauthorized().open()
                 .openUnauthorizedAgent();
 
         new Agent().open().authorizeAgent();
