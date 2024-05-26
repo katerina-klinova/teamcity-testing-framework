@@ -10,8 +10,8 @@ public class AgentsUnauthorized extends Page{
     private SelenideElement agentLink = element(Selectors.byHref("/agent/1"));
 
     public AgentsUnauthorized open(){
-        waitUntilPageIsLoaded();
         Selenide.open("/agents/unauthorized");
+        waitUntilPageIsLoaded();
         return this;
     }
 
