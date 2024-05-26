@@ -34,6 +34,7 @@ public class StartUpPage extends Page{
         acceptLicence.shouldBe(Condition.enabled, Duration.ofMinutes(7));
         acceptLicence.scrollTo();
         acceptLicence.click();
+        waitUntilElementIsEnabled(continueButton);
         continueButton.click();
         header.shouldBe(Condition.visible, Duration.ofMinutes(4));
         return this;
