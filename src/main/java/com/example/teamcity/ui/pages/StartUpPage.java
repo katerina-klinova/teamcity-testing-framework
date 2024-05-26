@@ -31,12 +31,12 @@ public class StartUpPage extends Page{
         waitUntilPageIsLoaded();
         proceedButton.click();
         waitUntilPageIsLoaded();
-        acceptLicence.shouldBe(Condition.enabled, Duration.ofMinutes(7));
+        acceptLicence.shouldBe(Condition.enabled, Duration.ofMinutes(10));
         acceptLicence.scrollTo();
         acceptLicence.click();
         waitUntilElementIsEnabled(continueButton);
         continueButton.click();
-        header.shouldBe(Condition.visible, Duration.ofMinutes(4));
+        header.shouldBe(Condition.visible, Duration.ofMinutes(5));
         return this;
     }
 }

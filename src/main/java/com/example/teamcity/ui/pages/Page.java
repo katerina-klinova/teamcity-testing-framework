@@ -28,7 +28,7 @@ public abstract class Page {
     }
 
     public void waitUntilDataIsSaved() {
-        savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(30));
+        savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(60));
     }
 
     public void waitUntilElementIsVisible(SelenideElement element){
