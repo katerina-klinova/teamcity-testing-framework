@@ -5,6 +5,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.example.teamcity.ui.Selectors;
 import com.example.teamcity.ui.elements.PageElement;
+import lombok.Getter;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.function.Function;
 import static com.codeborne.selenide.Selenide.element;
 
 public abstract class Page {
+    @Getter protected SelenideElement header = element(com.codeborne.selenide.Selectors.byId("header"));
     private SelenideElement submitButton = element(Selectors.byType("submit"));
     protected SelenideElement savingWaitingMarker = element(Selectors.byType("saving"));
     protected static SelenideElement pageLoadingMarker = element(Selectors.byDataTest("ring-loader"));

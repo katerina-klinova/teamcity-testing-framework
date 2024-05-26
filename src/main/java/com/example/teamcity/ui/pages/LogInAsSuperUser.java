@@ -4,11 +4,14 @@ import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.example.teamcity.api.config.Config;
 import com.example.teamcity.ui.Selectors;
+import lombok.Getter;
 
 import static com.codeborne.selenide.Selenide.element;
 
 public class LogInAsSuperUser extends Page{
     private SelenideElement authTokenInput = element(Selectors.byId("password"));
+    @Getter
+    private SelenideElement welcomeText = element(Selectors.byClass("h1"));
 
     public LogInAsSuperUser open(){
         Selenide.open("/login.html?super=1");
@@ -16,11 +19,12 @@ public class LogInAsSuperUser extends Page{
         return this;
     }
 
-    public void logInWithAuthToken(){
+    public LogInAsSuperUser logInWithAuthToken(){
         waitUntilPageIsLoaded();
         waitUntilElementIsVisible(authTokenInput);
         authTokenInput.sendKeys(Config.getProperty("superUserToken"));
         submit();
         waitUntilDataIsSaved();
+        return this;
     }
 }
