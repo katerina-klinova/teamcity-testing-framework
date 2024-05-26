@@ -80,6 +80,13 @@ jobs:
       # Настройка сервера при первом запуске (принятие лицензии, выбор базы данных и т.д.), реализованная в виде теста
         run: ./mvnw --quiet clean test -Dtest=SetupTest#startUpTest
 
+
+      - name: Run TeamCity agent
+        run: |
+          docker run -e SERVER_URL=http://$HOST:8111 -u 0 -d --name teamcity-agent \
+          -v /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
+          jetbrains/teamcity-agent:2023.11.1
+
       - name: Set up superUserToken environment variable
 #      # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
         run: |
@@ -101,11 +108,6 @@ jobs:
 #          docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1
 #          echo $SUPER_USER_TOKEN
 
-      - name: Run TeamCity agent
-        run: |
-          docker run -e SERVER_URL=http://$HOST:8111 -u 0 -d --name teamcity-agent \
-          -v /home/runner/work/teamcity-testing-framework/teamcity-testing-framework/tmp/teamcity_agent/conf:/data/teamcity_agent/conf \
-          jetbrains/teamcity-agent:2023.11.1
 
       - name: Set up TeamCity agent
         # Авторизация агента при первом запуске, реализованная в виде теста
