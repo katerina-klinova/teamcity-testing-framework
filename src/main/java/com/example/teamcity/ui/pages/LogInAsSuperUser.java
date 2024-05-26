@@ -25,6 +25,7 @@ public class LogInAsSuperUser extends Page{
         authTokenInput.sendKeys(Config.getProperty("superUserToken"));
         submit();
         waitUntilDataIsSaved();
+        waitUntilElementIsVisible(getWelcomeText());
         return this;
     }
 }
