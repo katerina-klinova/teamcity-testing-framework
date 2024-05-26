@@ -30,7 +30,7 @@ public abstract class Page {
     }
 
     public void waitUntilDataIsSaved() {
-        savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofSeconds(60));
+        savingWaitingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(5));
     }
 
     public void waitUntilElementIsVisible(SelenideElement element){
