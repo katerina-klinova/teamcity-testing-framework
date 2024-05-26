@@ -1,10 +1,13 @@
 package com.example.teamcity.ui.pages;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.example.teamcity.api.config.Config;
 import com.example.teamcity.ui.Selectors;
 import lombok.Getter;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.element;
 
@@ -25,7 +28,7 @@ public class LogInAsSuperUser extends Page{
         authTokenInput.sendKeys(Config.getProperty("superUserToken"));
         submit();
         waitUntilDataIsSaved();
-        waitUntilElementIsVisible(getWelcomeText());
+        welcomeText.shouldHave(Condition.text("Welcome to TeamCity"), Duration.ofMinutes(1));
         return this;
     }
 }
