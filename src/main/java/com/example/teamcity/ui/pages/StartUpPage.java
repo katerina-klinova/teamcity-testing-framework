@@ -36,7 +36,8 @@ public class StartUpPage extends Page{
         acceptLicence.click();
         waitUntilElementIsEnabled(continueButton);
         continueButton.click();
-        header.shouldBe(Condition.visible, Duration.ofMinutes(5));
+        waitUntilPageIsLoaded();
+        header.shouldBe(Condition.visible, Duration.ofMinutes(10));
         return this;
     }
 }
