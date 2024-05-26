@@ -30,7 +30,7 @@ jobs:
           echo "host=$HOST:8111" > src/main/resources/config.properties
           echo "remote=http://localhost:4444/wd/hub" >> src/main/resources/config.properties
           echo "browser=firefox" >> src/main/resources/config.properties
-          cat  src/main/resources/config.properties
+#          cat  src/main/resources/config.properties
 
 #      - name: Pull Selenoid Chrome
 #        run: docker pull selenoid/vnc_chrome:119.0
@@ -68,10 +68,10 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
-      - name: Curl Selenoid and TeamCity Endpoints
-        run: |
-          curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
-          curl -v http://localhost:4444/wd/hub || echo "http://localhost:4444/wd/hub is not accessible"
+#      - name: Curl Selenoid and TeamCity Endpoints
+#        run: |
+#          curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
+#          curl -v http://localhost:4444/wd/hub || echo "http://localhost:4444/wd/hub is not accessible"
 
 #      - name: Give execute permissions to mvnw
 #        run: chmod +x ./mvnw
