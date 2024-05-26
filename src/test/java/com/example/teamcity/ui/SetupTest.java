@@ -5,7 +5,6 @@ import com.example.teamcity.ui.pages.Agent;
 import com.example.teamcity.ui.pages.AgentsUnauthorized;
 import com.example.teamcity.ui.pages.LogInAsSuperUser;
 import com.example.teamcity.ui.pages.StartUpPage;
-import lombok.var;
 import org.testng.annotations.Test;
 
 public class SetupTest extends BaseUiTest{
