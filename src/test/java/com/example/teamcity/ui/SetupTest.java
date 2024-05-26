@@ -22,8 +22,10 @@ public class SetupTest extends BaseUiTest{
 //                .followLogInAsSuperUserLink();
 
         var superUserLogin = new LogInAsSuperUser().open();
-        superUserLogin.getHeader().shouldHave(Condition.text("Log in as Super user"));
-        superUserLogin.logInWithAuthToken()
+        superUserLogin
+                .getHeader().shouldHave(Condition.text("Log in as Super user"));
+        superUserLogin
+                .logInWithAuthToken()
                 .getWelcomeText().shouldHave(Condition.text("Welcome to TeamCity"));
 
         new AgentsUnauthorized().open()
