@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
+import static com.codeborne.selenide.Selenide.webdriver;
+
 public class SetupTest extends BaseUiTest{
 
     @Test(groups = {"setup"})
@@ -29,6 +31,7 @@ public class SetupTest extends BaseUiTest{
         superUserLogin
                 .logInWithAuthToken()
                 .getWelcomeText().shouldHave(Condition.text("Welcome to TeamCity"), Duration.ofMinutes(2));
+        System.out.println("URL = " + webdriver().driver().getCurrentFrameUrl());
 
         new AgentsUnauthorized().open()
                 .openUnauthorizedAgent();
