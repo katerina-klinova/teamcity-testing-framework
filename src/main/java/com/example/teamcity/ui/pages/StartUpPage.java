@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Selenide.element;
 @Getter
 public class StartUpPage extends Page{
 
-    private SelenideElement header = element(Selectors.byId("header"));
+    private SelenideElement header = element(Selectors.byId("header"));//Create Administrator Account
     private SelenideElement continueButton = element(Selectors.byName("Continue"));
     private SelenideElement proceedButton = element(Selectors.byId("proceedButton"));
     private SelenideElement restoreFromBackupButton = element(Selectors.byId("restoreButton"));
@@ -35,7 +35,7 @@ public class StartUpPage extends Page{
         acceptLicence.scrollTo();
         acceptLicence.click();
         continueButton.click();
-        waitUntilPageIsLoaded();
+        header.shouldBe(Condition.visible, Duration.ofMinutes(2));
         return this;
     }
 }
