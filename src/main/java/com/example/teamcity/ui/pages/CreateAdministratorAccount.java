@@ -7,7 +7,7 @@ import com.example.teamcity.ui.Selectors;
 import static com.codeborne.selenide.Selenide.element;
 
 public class CreateAdministratorAccount extends Page {
-    private SelenideElement logInAsSuperUserLink = element(Selectors.byText("Login as Super user"));//byHref("/login.html?super=1"));
+    private SelenideElement logInAsSuperUserLink = element(Selectors.byHref("/login.html?super=1"));
 
     public CreateAdministratorAccount open() {
         Selenide.open("/setupAdmin.html");
@@ -16,6 +16,7 @@ public class CreateAdministratorAccount extends Page {
     }
 
     public void followLogInAsSuperUserLink(){
+        waitUntilElementIsVisible(logInAsSuperUserLink);
         logInAsSuperUserLink.click();
     }
 }
