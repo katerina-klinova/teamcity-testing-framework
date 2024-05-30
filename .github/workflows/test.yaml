@@ -110,6 +110,11 @@ jobs:
         # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
         run: ./mvnw test
 
+      - name: Download and extract swagger-coverage
+        run: |
+          wget https://github.com/viclovsky/swagger-coverage/releases/download/1.5.0/swagger-coverage-1.5.0.zip
+          unzip -q swagger-coverage-commandline-1.5.0.zip
+
        # Создание репорта с покрытием API тестов, основанного на Swagger. Документация: https://github.com/viclovsky/swagger-coverage
       - name: Run Swagger coverage
         if: always()
