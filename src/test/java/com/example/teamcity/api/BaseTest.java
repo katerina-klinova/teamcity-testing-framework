@@ -9,8 +9,6 @@ import io.restassured.specification.RequestSpecification;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.ITestContext;
 
 import java.util.ArrayList;
 
@@ -30,15 +28,15 @@ public class BaseTest {
     public UncheckedRequests uncheckedWithSuperUser
             = new UncheckedRequests(Specifications.getSpec().getSuperUserSpec());
 
-    @BeforeSuite
-    public void beforeSuite(ITestContext context){
-        String[] includedGroups = context.getIncludedGroups();
-        for (String group : includedGroups) {
-            if (!group.equals("setup")) {
-                new SetupSuite().setServerAuthSettings();
-            }
-        }
-    }
+//    @BeforeSuite
+//    public void beforeSuite(ITestContext context){
+//        String[] includedGroups = context.getIncludedGroups();
+//        for (String group : includedGroups) {
+//            if (!group.equals("setup")) {
+//                new SetupSuite().setServerAuthSettings();
+//            }
+//        }
+//    }
 
     @BeforeMethod
     public void beforeTest(){
