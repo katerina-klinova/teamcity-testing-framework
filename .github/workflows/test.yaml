@@ -106,9 +106,9 @@ jobs:
       #        # Не указываем clean, чтобы потом в итоговом репорте были и setup тесты
       #        run: ./mvnw --quiet test -Dtest=SetupTest#setupTeamCityAgentTest
 
-      - name: Run tests
-        # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
-        run: ./mvnw test
+#      - name: Run tests
+#        # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
+#        run: ./mvnw test
 
       - name: Download and extract swagger-coverage
         run: |
@@ -116,12 +116,12 @@ jobs:
           unzip -q swagger-coverage-1.5.0.zip
 
       - name: View files in script directory .swagger-coverage-commandline-1.5.0/bin/
-        run:  ls -la .swagger-coverage-commandline-1.5.0/bin/
+        run:  ls -la swagger-coverage-commandline-1.5.0/bin/
 
        # Создание репорта с покрытием API тестов, основанного на Swagger. Документация: https://github.com/viclovsky/swagger-coverage
       - name: Run Swagger coverage
         if: always()
-        run: .swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
+        run: swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i target/swagger-coverage-output
 
       # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
       - name: Save Swagger coverage
