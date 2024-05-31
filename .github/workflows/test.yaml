@@ -108,8 +108,7 @@ jobs:
       #        run: ./mvnw --quiet test -Dtest=SetupTest#setupTeamCityAgentTest
 
       - name: Run Checkstyle
-        run: mvn validate -Dcheckstyle.failOnViolation=false
-
+        run: mvn validate -Dcheckstyle.failOnViolation=true
 
       - name: Run tests
         # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента
