@@ -106,7 +106,7 @@ public class BuildConfigurationTest extends BaseApiTest{
 
     //5. try creating a build reusing an existing name
     @Test
-    public void buildConfigShouldNotGetCreatedHavingExistingName(){
+    public void buildConfigShouldNotGetCreatedHavingExistingName() {
         var firstTestData = testDataStorage.addTestData();
         var secondTestData = testDataStorage.addTestData();
 
@@ -124,9 +124,11 @@ public class BuildConfigurationTest extends BaseApiTest{
                 .create(secondTestData.getBuildType())
                 .then().assertThat()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(Matchers.containsString(
-                        "The build configuration / template ID \"" + firstTestData.getBuildType().getId()
-                                + "\" is already used by another configuration or template"));
+                .body(Matchers.containsString((String.format(
+                        "buildServer.serverSide.DuplicateBuildTypeNameException: Build configuration with " +
+                                "name \"%s\" already exists in project: \"%s\"",
+                        firstTestData.getBuildType().getName(), firstTestData.getProject().getName()
+                ))));
     }
 
     //6. try creating a build using a not existing project Id

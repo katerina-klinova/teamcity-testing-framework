@@ -1,20 +1,18 @@
 package com.example.teamcity.api.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Properties {
-    private List<Property> property;
-    private int count;
+public class Group {
+
+    private String key;
+    private String name;
     private String href;
+    private String description;
 }

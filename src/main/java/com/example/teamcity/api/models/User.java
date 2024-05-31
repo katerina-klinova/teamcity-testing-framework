@@ -11,4 +11,8 @@ public class User {
     private String password;
     private String email;
     private Roles roles;
+    private String id;
+    private String href;
+    private Properties properties;
+    private Groups groups;
 }
