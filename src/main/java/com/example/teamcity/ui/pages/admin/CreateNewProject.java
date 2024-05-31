@@ -47,7 +47,7 @@ public class CreateNewProject extends Page {
         waitUntilPageIsLoaded();
     }
 
-    public void setupProjectManually(String projectName, String projectId){
+    public CreateNewProject setupProjectManually(String projectName, String projectId){
         waitUntilElementIsVisible(manuallyLink);
         manuallyLink.click();
         waitUntilElementIsVisible(nameInput);
@@ -56,5 +56,6 @@ public class CreateNewProject extends Page {
         projectIdInput.sendKeys(projectId);
         submit();
         waitUntilPageIsLoaded();
+        return this;
     }
 }

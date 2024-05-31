@@ -26,8 +26,18 @@ public class CheckedRequestGenerator<Response> extends Request implements CrudIn
     }
 
     @Override
-    public Object get(String id) {
-        return null;
+    public Response get(String id) {
+        return getByIdentifier("id", id);
+    }
+
+    public Response getByName(String name) {
+        return getByIdentifier("name", name);
+    }
+
+    public Response getByIdentifier(String identifier, String text) {
+        return new UncheckedRequestGenerator<Type>(spec, requestClass).get(identifier, text)
+                .then().assertThat().statusCode(HttpStatus.SC_OK)
+                .extract().as(responseClass);
     }
 
     @Override
@@ -37,7 +47,7 @@ public class CheckedRequestGenerator<Response> extends Request implements CrudIn
 
     @Override
     public Object delete(String id) {
-        return new UncheckedRequestGenerator<Type>(spec,requestClass).delete(id)
+        return new UncheckedRequestGenerator<Type>(spec, requestClass).delete(id)
                 .then().assertThat().statusCode(HttpStatus.SC_NO_CONTENT)
                 .extract().asString();
     }

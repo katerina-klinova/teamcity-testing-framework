@@ -84,8 +84,8 @@ public class TestDataGenerator {
                 .parentProject(Project.builder()
                         .locator("_Root")
                         .build())
-                .name(RandomData.getString())
-                .id("project_" + RandomData.getString())
+                .name("ProjectName" + RandomData.getString())
+                .id("ProjectId" + RandomData.getString())
                 .copyAllAssociatedSettings(true)
                 .build();
 

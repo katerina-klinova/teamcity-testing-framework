@@ -1,6 +1,9 @@
 package com.example.teamcity.api.generators;
 
-import com.example.teamcity.api.models.*;
+import com.example.teamcity.api.models.BuildType;
+import com.example.teamcity.api.models.NewProjectDescription;
+import com.example.teamcity.api.models.ServerAuthSettings;
+import com.example.teamcity.api.models.User;
 import com.example.teamcity.api.requests.unchecked.UncheckedProjectRequest;
 import com.example.teamcity.api.requests.unchecked.UncheckedUserRequest;
 import com.example.teamcity.api.spec.Specifications;
@@ -18,7 +21,7 @@ public class TestData {
 
     public void delete(){
         var spec = Specifications.getSpec().getSuperUserSpec();
-        if (TestDataCleanUp.getTestDataUsed().toString().contains("project")) {
+        if (TestDataCleanUp.getTestDataUsed().toString().contains("Project")) {
             new UncheckedProjectRequest(spec).delete(project.getId());
         }
         if (TestDataCleanUp.getTestDataUsed().toString().contains("user")) {

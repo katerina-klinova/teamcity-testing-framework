@@ -1,7 +1,10 @@
 package com.example.teamcity.ui;
 
 import com.codeborne.selenide.Condition;
+import com.example.teamcity.api.BuildConfigurationTest;
 import com.example.teamcity.api.generators.RandomData;
+import com.example.teamcity.api.models.BuildType;
+import com.example.teamcity.api.requests.checked.CheckedRequestGenerator;
 import com.example.teamcity.ui.pages.admin.CreateBuildConfiguration;
 import com.example.teamcity.ui.pages.admin.CreateNewProject;
 import com.example.teamcity.ui.pages.admin.EditProject;
@@ -20,15 +23,22 @@ public class CrateNewBuildConfigTests extends BaseUiTest{
 
         new CreateNewProject().open(project.getParentProject().getLocator())
                 .createProjectByUrl(url)
-                .setupProjectFromRepo(project.getName(), buildConfig.getName());
+                .setupProjectFromRepo(project.getId(), buildConfig.getName());
 
-        editProject.open(project.getName().replace("_", "")).clickCreateBuildConfig();
+        editProject.open(project.getId()).clickCreateBuildConfig();
 
         new CreateBuildConfiguration().createBuildFromRepo(url)
                 .setupBuildConfigFromRepo(buildConfig.getName());
 
-        editProject.open(project.getName().replace("_", "")).getBuildConfigNameTextInTable()
+        //UI check that build configuration exists
+        editProject.open(project.getId()).getBuildConfigNameTextInTable()
                .shouldHave(Condition.text(buildConfig.getName()));
+
+       //API check that build configuration exists
+        new CheckedRequestGenerator<BuildType>(superUserSpec, BuildConfigurationTest.class, BuildType.class)
+            .getByName(buildConfig.getName());
+
+        testDataCleanUp.add(project.getId());
     }
 
     @Test
@@ -48,27 +58,37 @@ public class CrateNewBuildConfigTests extends BaseUiTest{
         new CreateBuildConfiguration()
                 .setupBuildConfigManually(testData.getBuildType().getName(), testData.getBuildType().getId());
 
+        //UI check that build configuration exists
         editProject.open(project.getName()).getBuildConfigNameTextInTable()
                 .shouldHave(Condition.text(testData.getBuildType().getName()));
+
+        //API check that build configuration exists
+        new CheckedRequestGenerator<BuildType>(superUserSpec, BuildConfigurationTest.class, BuildType.class)
+                .getByName(testData.getBuildType().getName());
+
+        testDataCleanUp.add(project.getId());
     }
 
     @Test
-    public void authorizedUserShouldNotBeAbleToCreateNewBuildConfigFromRepositoryWithNoUrl(){
+    public void authorizedUserShouldNotBeAbleToCreateNewBuildConfigFromRepositoryWithNoUrl() {
         var testData = testDataStorage.addTestData();
         var url = "https://github.com/AlexPshe/spring-core-for-qa";
         var project = testData.getProject();
-        var createBuildConfig = new CreateBuildConfiguration();
 
         loginAsUser(testData.getUser());
 
         new CreateNewProject().open(project.getParentProject().getLocator())
                 .createProjectByUrl(url)
-                .setupProjectFromRepo(project.getName(), testData.getBuildType().getName());
+                .setupProjectFromRepo(project.getId(), testData.getBuildType().getName());
 
-        createBuildConfig.open(project.getName().replace("_", ""))
-                .createBuildFromRepo("");
-        createBuildConfig.getUrlErrorMessage()
+        new CreateBuildConfiguration().open(project.getId())
+                .createBuildFromRepo("")
+                .getUrlErrorMessage()
                 .shouldHave(Condition.text("URL must not be empty"));
+
+//        API check doesn't make sense here because there is a build that got created with project creation
+
+        testDataCleanUp.add(project.getId());
     }
 
     @Test
@@ -95,5 +115,9 @@ public class CrateNewBuildConfigTests extends BaseUiTest{
                         buildConfig.getName(),
                         project.getName()
                 )));
+
+//        API check doesn't make sense here because there is a build with the same identifier
+
+        testDataCleanUp.add(project.getId());
     }
 }

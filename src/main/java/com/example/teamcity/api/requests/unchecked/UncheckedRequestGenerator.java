@@ -47,10 +47,13 @@ public class UncheckedRequestGenerator<T> extends Request implements CrudInterfa
 
     @Override
     public Response get(String id) {
+        return get("id", id);
+    }
+    public Response get(String identifier, String text) {
         return given()
                 .filter(new SwaggerCoverageRestAssured())
                 .spec(spec)
-                .get(endpoint + "/id:" + id);
+                .get(endpoint + "/" + identifier + ":" + text);
     }
 
     @Override
