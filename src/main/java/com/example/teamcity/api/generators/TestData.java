@@ -14,7 +14,6 @@ public class TestData {
     private ServerAuthSettings authSettings;
     private User user;
     private NewProjectDescription project;
-   //private Project project;
     private BuildType buildType;
 
     public void delete(){
