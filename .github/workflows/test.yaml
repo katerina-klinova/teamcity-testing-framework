@@ -1,6 +1,7 @@
 name: TeamCity Tests
 
-on: push
+#on: push
+on:  [push, pull_request]
 
 jobs:
   run_teamcity_tests:
@@ -105,6 +106,9 @@ jobs:
       #        # Авторизация агента при первом запуске, реализованная в виде теста
       #        # Не указываем clean, чтобы потом в итоговом репорте были и setup тесты
       #        run: ./mvnw --quiet test -Dtest=SetupTest#setupTeamCityAgentTest
+
+      - name: Run Checkstyle
+        run: mvn validate -Dcheckstyle.failOnViolation=true
 
       - name: Run tests
         # Указываем группу, чтобы еще раз не запустить тесты, которые использовались для сетапа сервера и агента

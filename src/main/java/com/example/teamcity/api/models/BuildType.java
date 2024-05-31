@@ -27,105 +27,10 @@ public class BuildType {
     private String href;
     private String webUrl;
     private Templates templates;
-   // private Project project;
     private VscRootEntries vscRootEntries;
     private Properties settings;
     private Properties parameters;
     private Count steps;
     private Count features;
     private Count triggers;
-    //private Count snapshot-dependencies;
-    /*
-inherited
-
-boolean
-
-links
-
-Links
-
-project
-
-Project
-
-templates
-
-BuildTypes
-
-template
-
-BuildType
-
-vcs-root-entries
-
-VcsRootEntries
-
-settings
-
-Properties
-
-parameters
-
-Properties
-
-steps
-
-Steps
-
-features
-
-Features
-
-triggers
-
-Triggers
-
-snapshot-dependencies
-
-SnapshotDependencies
-
-artifact-dependencies
-
-ArtifactDependencies
-
-agent-requirements
-
-AgentRequirements
-
-branches
-
-Branches
-
-builds
-
-Builds
-
-investigations
-
-Investigations
-
-compatibleAgents
-
-Agents
-
-compatibleCloudImages
-
-CloudImages
-
-vcsRootInstances
-
-VcsRootInstances
-
-externalStatusAllowed
-
-boolean
-
-pauseComment
-
-Comment
-
-locator
-
-string
-     */
 }
