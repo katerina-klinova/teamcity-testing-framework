@@ -3,6 +3,7 @@ package com.example.teamcity.api.requests.unchecked;
 import com.example.teamcity.api.generators.TestDataCleanUp;
 import com.example.teamcity.api.requests.CrudInterface;
 import com.example.teamcity.api.requests.Request;
+import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -34,7 +35,7 @@ public class UncheckedRequestGenerator<T> extends Request implements CrudInterfa
     @Override
     public Response create(Object obj) {
         var response = given()
-  //              .filter(new SwaggerCoverageRestAssured())
+                .filter(new SwaggerCoverageRestAssured())
                 .spec(spec)
                 .body(obj)
                 .post(endpoint);
@@ -47,7 +48,7 @@ public class UncheckedRequestGenerator<T> extends Request implements CrudInterfa
     @Override
     public Response get(String id) {
         return given()
-    //            .filter(new SwaggerCoverageRestAssured())
+                .filter(new SwaggerCoverageRestAssured())
                 .spec(spec)
                 .get(endpoint + "/id:" + id);
     }
@@ -55,7 +56,7 @@ public class UncheckedRequestGenerator<T> extends Request implements CrudInterfa
     @Override
     public Object update(String id, Object obj) {
         return given()
-   //             .filter(new SwaggerCoverageRestAssured())
+                .filter(new SwaggerCoverageRestAssured())
                 .spec(spec)
                 .body(obj)
                 .put(endpoint + "/id:" + id);
@@ -64,7 +65,7 @@ public class UncheckedRequestGenerator<T> extends Request implements CrudInterfa
     @Override
     public Response delete(String id) {
         return given()
-      //          .filter(new SwaggerCoverageRestAssured())
+                .filter(new SwaggerCoverageRestAssured())
                 .spec(spec)
                 .delete(endpoint + identifier + id);
     }
