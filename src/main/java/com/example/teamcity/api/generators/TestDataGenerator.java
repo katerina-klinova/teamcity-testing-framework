@@ -1,3 +1,4 @@
+
 package com.example.teamcity.api.generators;
 
 import com.example.teamcity.api.models.AuthModule;
@@ -83,8 +84,8 @@ public class TestDataGenerator {
                 .parentProject(Project.builder()
                         .locator("_Root")
                         .build())
-                .name(RandomData.getString())
-                .id("project_" + RandomData.getString())
+                .name("ProjectName" + RandomData.getString())
+                .id("ProjectId" + RandomData.getString())
                 .copyAllAssociatedSettings(true)
                 .build();
 
@@ -104,7 +105,7 @@ public class TestDataGenerator {
     public static Roles generateRole(com.example.teamcity.api.enums.Role role, String scope){
         return Roles.builder()
                 .role(Arrays.asList(Role.builder()
-                                .roleId(role.getText())
+                        .roleId(role.getText())
                         .scope(scope)
                         .build()))
                 .build();

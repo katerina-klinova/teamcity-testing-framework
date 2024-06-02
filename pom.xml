@@ -21,6 +21,7 @@
         <google-gson.version>2.10.1</google-gson.version>
         <assertj-core.version>3.22.0</assertj-core.version>
         <selenide.version>7.0.2</selenide.version>
+        <swagger-coverage.version>1.5.0</swagger-coverage.version>
     </properties>
 
     <dependencies>
@@ -84,6 +85,11 @@
             <artifactId>selenide</artifactId>
             <version>${selenide.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.viclovsky</groupId>
+            <artifactId>swagger-coverage-rest-assured</artifactId>
+            <version>${swagger-coverage.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -103,10 +109,10 @@
                             <value>${project.build.directory}/allure-results</value>
                         </property>
                     </systemProperties>
-                        <suiteXmlFiles>
-                            <suiteXmlFile>testng-suites/api-suite.xml</suiteXmlFile>
-                            <suiteXmlFile>testng-suites/ui-suite.xml</suiteXmlFile>
-                        </suiteXmlFiles>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng-suites/api-suite.xml</suiteXmlFile>
+                        <suiteXmlFile>testng-suites/ui-suite.xml</suiteXmlFile>
+                    </suiteXmlFiles>
                 </configuration>
                 <dependencies>
                     <dependency>

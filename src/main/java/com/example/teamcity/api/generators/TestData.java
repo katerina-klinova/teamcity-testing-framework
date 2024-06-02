@@ -21,7 +21,7 @@ public class TestData {
 
     public void delete(){
         var spec = Specifications.getSpec().getSuperUserSpec();
-        if (TestDataCleanUp.getTestDataUsed().toString().contains("project")) {
+        if (TestDataCleanUp.getTestDataUsed().toString().contains("Project")) {
             new UncheckedProjectRequest(spec).delete(project.getId());
         }
         if (TestDataCleanUp.getTestDataUsed().toString().contains("user")) {

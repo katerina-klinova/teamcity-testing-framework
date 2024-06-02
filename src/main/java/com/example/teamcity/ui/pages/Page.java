@@ -34,11 +34,11 @@ public abstract class Page {
     }
 
     public void waitUntilElementIsVisible(SelenideElement element){
-        element.shouldBe(Condition.visible, Duration.ofSeconds(10));
+        element.shouldBe(Condition.visible, Duration.ofMinutes(5));
     }
 
     public void waitUntilElementIsEnabled(SelenideElement element){
-        element.shouldBe(Condition.enabled, Duration.ofMinutes(10));
+        element.shouldBe(Condition.enabled, Duration.ofMinutes(5));
     }
 
     public <T extends PageElement> List<T> generatePageElements(

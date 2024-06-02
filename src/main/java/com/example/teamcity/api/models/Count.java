@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Property{
-   private String name;
-   private String value;
-   private Boolean inherited;
-   private Type type;
+public class Count {
+    private String count;
 }
