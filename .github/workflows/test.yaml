@@ -147,8 +147,17 @@ jobs:
         if: always()
         run: |
           mkdir -p gh-pages/swagger-coverage
-          cp swagger-coverage-report.html index.html
-          mv index.html swagger-coverage-results.json gh-pages/swagger-coverage/
+          mv swagger-coverage-report.html swagger-coverage-results.json gh-pages/swagger-coverage/
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+           name: test-results
+           path: |
+             target/surefire-reports/*.png
+             target/surefire-reports/*.html
+           retention-days: 5
 
       - name: Load test report history
         uses: actions/checkout@v4
