@@ -86,7 +86,7 @@ jobs:
       #          jetbrains/teamcity-agent:2023.11.1
 
       - name: Set up superUserToken environment variable
-        #      # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
+        # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
         run:
           echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
 
