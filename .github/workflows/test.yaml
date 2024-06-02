@@ -1,6 +1,5 @@
 name: TeamCity Tests
 
-#on: push
 on:  [push, pull_request]
 
 jobs:
@@ -125,7 +124,7 @@ jobs:
         run: swagger-coverage-commandline-1.5.0/bin/swagger-coverage-commandline -s http://$HOST:8111/app/rest/swagger.json -i swagger-coverage-output -q
 
       # Swagger coverage репорт сохраняется в артефакты GitHub Actions прогона
-      - name: Save Swagger coverage
+      - name: Upload Swagger coverage
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -143,6 +142,12 @@ jobs:
             target/surefire-reports/*.png
             target/surefire-reports/*.html
           retention-days: 5
+
+      - name: Move Swagger coverage to gh-pages
+        if: always()
+        run: |
+          mkdir -p gh-pages/swagger-coverage
+          mv swagger-coverage-report.html swagger-coverage-results.json gh-pages/swagger-coverage/
 
       - name: Load test report history
         uses: actions/checkout@v4
