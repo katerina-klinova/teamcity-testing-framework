@@ -147,7 +147,8 @@ jobs:
         if: always()
         run: |
           mkdir -p gh-pages/swagger-coverage
-          mv swagger-coverage-report.html swagger-coverage-results.json gh-pages/swagger-coverage/
+          mv swagger-coverage-report.html > index.html
+          mv index.html swagger-coverage-results.json gh-pages/swagger-coverage/
 
       - name: Load test report history
         uses: actions/checkout@v4
@@ -171,4 +172,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: gh-pages
