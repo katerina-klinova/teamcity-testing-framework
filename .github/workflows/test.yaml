@@ -147,7 +147,7 @@ jobs:
         if: always()
         run: |
           mkdir -p gh-pages/swagger-coverage
-          mv swagger-coverage-report.html > index.html
+          cp swagger-coverage-report.html index.html
           mv index.html swagger-coverage-results.json gh-pages/swagger-coverage/
 
       - name: Load test report history
