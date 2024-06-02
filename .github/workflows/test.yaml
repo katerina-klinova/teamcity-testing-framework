@@ -26,7 +26,7 @@ jobs:
 
       - name: Set up config properties
         run: |
-          echo "host=$HOST:8111" >> src/main/resources/config.properties
+          echo "host=$HOST:8111" > src/main/resources/config.properties
           echo "remote=http://localhost:4444/wd/hub" >> src/main/resources/config.properties
           echo "browser=firefox" >> src/main/resources/config.properties
       #          cat  src/main/resources/config.properties
@@ -87,7 +87,7 @@ jobs:
 
       - name: Set up superUserToken environment variable
         #      # Берем из лога контейнера строку с последним упоминанием токена, из нее 6-е слово, что соответствует токену
-        run: |
+        run:
           echo "SUPER_USER_TOKEN=$(docker logs teamcity-server | grep 'Super user authentication token: ' | tail -n 1 | awk '{print $6}')" >> $GITHUB_ENV
 
       - name: Set up superUserToken config property
