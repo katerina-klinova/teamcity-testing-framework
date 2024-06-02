@@ -145,6 +145,13 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      - name: Copy Swagger coverage report to gh-pages directory
+        if: always()
+        run: |
+          mkdir -p gh-pages/swagger-coverage
+          cp swagger-coverage-report.html gh-pages/swagger-coverage/
+          cp swagger-coverage-results.json gh-pages/swagger-coverage/
+
       - name: Build test report
         uses: simple-elf/allure-report-action@v1.7
         if: always()
@@ -159,4 +166,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+#          publish_dir: allure-history
+          publish-dir: gh-pages
