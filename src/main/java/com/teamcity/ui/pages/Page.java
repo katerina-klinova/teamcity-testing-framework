@@ -26,7 +26,7 @@ public abstract class Page {
     }
 
     public void waitUntilPageIsLoaded() {
-        pageLoadingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(10));
+        pageLoadingMarker.shouldNotBe(Condition.visible, Duration.ofMinutes(5));
     }
 
     public void waitUntilDataIsSaved() {

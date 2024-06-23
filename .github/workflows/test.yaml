@@ -113,7 +113,7 @@ jobs:
 
       - name: Run tests
         # Running the tests with group provided in order not run TeamCity Server and Agent setup tests again
-        run: ./mvnw test
+        run: ./mvnw test -DincludeGroups=Regression
 
 #          -Dtest=Regression
 
