@@ -71,8 +71,8 @@ jobs:
 #      - name: Wait for TeamCity server to start
 #        run: sleep 10
 
-      - name: Check TeamCity server logs
-        run: docker logs teamcity-server
+#      - name: Check TeamCity server logs
+#        run: docker logs teamcity-server
 
       - name: Check that Selenoid and TeamCity Endpoints are available
         run: |
