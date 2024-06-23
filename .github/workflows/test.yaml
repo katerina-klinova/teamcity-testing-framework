@@ -29,6 +29,7 @@ jobs:
           echo "host=$HOST:8111" >> src/main/resources/config.properties
           echo "remote=http://localhost:4444/wd/hub" >> src/main/resources/config.properties
           echo "browser=firefox" >> src/main/resources/config.properties
+          echo "maxRetryCount=1" >> src/main/resources/config.properties
       #          cat  src/main/resources/config.properties
 
       #      - name: Pull Selenoid Chrome
