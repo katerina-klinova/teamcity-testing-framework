@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Sun Jun 23 13:31:26 GMT 2024","Sun Jun 23 13:32:00 GMT 2024","33143","Surefire suite","Surefire test","com.teamcity.ui.SetupTest","com.teamcity.ui.SetupTest","startUpTest","startUpTest",""
