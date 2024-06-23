@@ -16,7 +16,7 @@ jobs:
       - name: Install ifconfig
         run: sudo apt-get update && sudo apt-get install -y net-tools
 
-      - name: Setup host environment variables
+      - name: Setup $HOST environment variable
         run: |
           echo "HOST=$(ifconfig | grep -E "([0-9]{1,3}\.){3}[0-9]{1,3}" | grep -v 127.0.0.1 | awk '{ print $2 }' | cut -f2 -d: | head -n1)" >> $GITHUB_ENV
 
@@ -56,9 +56,6 @@ jobs:
           aerokube/selenoid-ui \
           --selenoid-uri http://$HOST:4444
 
-      - name: Current directory
-        run: pwd
-
       - name: Run TeamCity server
         # Flags -u 0 start the container on behalf of root to have enough permissions to write files that are listed in volume.
         # A better option would run chown -R 1000:1000 for these directories and start the container without these flags
@@ -71,8 +68,8 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
-      - name: Wait for TeamCity server to start
-        run: sleep 10
+#      - name: Wait for TeamCity server to start
+#        run: sleep 10
 
       - name: Check TeamCity server logs
         run: docker logs teamcity-server
@@ -87,8 +84,7 @@ jobs:
 
       - name: Set up TeamCity server
         # Server setup (accepting licence, database selection, etc.) in the form of test
-        run: ./mvnw -X clean test -Dtest=SetupTest#startUpTest
-        #./mvnw --quiet clean test -Dtest=SetupTest#startUpTest
+        run: ./mvnw --quiet clean test -Dtest=SetupTest#startUpTest
 
       #      - name: Run TeamCity agent
         # #This step starts a TeamCity agent that is needed to run builds
@@ -117,7 +113,9 @@ jobs:
 
       - name: Run tests
         # Running the tests with group provided in order not run TeamCity Server and Agent setup tests again
-        run: ./mvnw test -Dtest=Regression
+        run: ./mvnw test
+
+#          -Dtest=Regression
 
       - name: Download and extract swagger-coverage
         run: |
