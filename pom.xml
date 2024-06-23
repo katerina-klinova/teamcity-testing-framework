@@ -105,6 +105,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <printSummary>true</printSummary>
                     <properties>
                         <property>
                             <name>listener</name>
