@@ -71,6 +71,12 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
+      - name: Wait for TeamCity server to start
+        run: sleep 60
+
+      - name: Check TeamCity server logs
+        run: docker logs teamcity-server
+
       - name: Check that Selenoid and TeamCity Endpoints are available
         run: |
           curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
