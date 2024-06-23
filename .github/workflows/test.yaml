@@ -71,8 +71,8 @@ jobs:
           -p 8111:8111 \
           jetbrains/teamcity-server:2023.11.1
 
-      - name: Wait for TeamCity server to start
-        run: sleep 60
+#      - name: Wait for TeamCity server to start
+#        run: sleep 60
 
       - name: Check TeamCity server logs
         run: docker logs teamcity-server
@@ -145,7 +145,7 @@ jobs:
         with:
           name: test-results
           path: |
-            target/surefire-reports/
+#            target/surefire-reports/
             target/surefire-reports/*.png
             target/surefire-reports/*.html
           retention-days: 5
