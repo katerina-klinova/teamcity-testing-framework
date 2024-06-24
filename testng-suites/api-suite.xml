@@ -2,9 +2,9 @@
 <suite name="API Suite">
     <test name="API Test">
         <classes>
-            <class name="com.example.teamcity.api.ProjectTest"/>
-            <class name="com.example.teamcity.api.RolesTest"/>
-            <class name="com.example.teamcity.api.BuildConfigurationTest"/>
+            <class name="com.teamcity.api.ProjectTest"/>
+            <class name="com.teamcity.api.RolesTest"/>
+            <class name="com.teamcity.api.BuildConfigurationTest"/>
         </classes>
     </test>
 </suite>
