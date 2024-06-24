@@ -82,7 +82,7 @@ public class ProjectTest extends BaseApiTest {
                 .body(Matchers.containsString("Could not find the entity requested"));
     }
 
-    @Test(description = "User should be able to delete project", groups = {"Regression"})
+    @Test(description = "User should be able to delete project", groups = {"Regress***"})
     public void userDeletesProjectTest() {
         checkedSuperUser.getRequest(USERS).create(testData.get(USERS));
 
