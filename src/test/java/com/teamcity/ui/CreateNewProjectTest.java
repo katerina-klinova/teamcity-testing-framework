@@ -58,7 +58,7 @@ public class CreateNewProjectTest extends BaseUiTest {
         checkedSuperUser.getRequest(PROJECTS).read(projectData.getId());
     }
 
-    @Test(description = "User should not be able to create a project from private repository", groups = {"Regression"})
+    @Test(description = "User should not be able to create a project from private repository when not logged into Github", groups = {"Regression"})
     public void authorizedUserShouldNotBeAbleToCreateNewProjectFromPrivateRepository() {
         var createNewProjPage = new CreateNewProject();
         var projectData = (NewProjectDescription) testData.get(PROJECTS);
@@ -70,7 +70,7 @@ public class CreateNewProjectTest extends BaseUiTest {
                 .createProjectByUrl(PRIVATE_REPO)
                 .getUrlErrorMessage().shouldHave(
                         Condition.text("Anonymous authentication has failed. The repository is either private or does not exist")
-                        , Duration.ofMinutes(1));
+                        , Duration.ofSeconds(30));
 
         //API check that project does not exist
         uncheckedSuperUser.getRequest(PROJECTS).read(projectData.getId())

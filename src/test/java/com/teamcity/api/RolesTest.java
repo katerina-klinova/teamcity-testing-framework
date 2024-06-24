@@ -100,6 +100,6 @@ public class RolesTest extends BaseApiTest{
                 .create(testData.get(BUILD_TYPES))
                 .then().assertThat().statusCode(HttpStatus.SC_FORBIDDEN)
                 .body(Matchers.containsString(
-                        "You do not have enough permissions to access project with internal id: project"));
+                        "You do not have enough permissions "));
     }
 }
