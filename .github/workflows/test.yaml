@@ -112,7 +112,7 @@ jobs:
 
       - name: Run tests
         # Running the tests with group provided in order not run TeamCity Server and Agent setup tests again
-        run: ./mvnw test -Dgroups=Regression
+        run: ./mvnw test
 
       - name: Download and extract swagger-coverage
         run: |
