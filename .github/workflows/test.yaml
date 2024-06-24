@@ -73,10 +73,10 @@ jobs:
 #          sleep 10
 #          docker logs teamcity-server
 
-      - name: Check that Selenoid and TeamCity Endpoints are available
-        run: |
-          curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
-          curl -v http://$HOST:4444/wd/hub || echo "http://$HOST:4444/wd/hub is not accessible"
+#      - name: Check that Selenoid and TeamCity Endpoints are available
+#        run: |
+#          curl -v http://$HOST:8111 || echo "TeamCity server is not accessible"
+#          curl -v http://$HOST:4444/wd/hub || echo "http://$HOST:4444/wd/hub is not accessible"
 
       - name: Give execute permissions to mvnw
         run: chmod +x ./mvnw
@@ -110,9 +110,9 @@ jobs:
       - name: Run Checkstyle
         run: mvn validate -Dcheckstyle.failOnViolation=true
 
-#      - name: Run tests
-#        # Running the tests with group provided in order not run TeamCity Server and Agent setup tests again
-#        run: ./mvnw test
+      - name: Run tests
+        # Running the tests with group provided in order not run TeamCity Server and Agent setup tests again
+        run: ./mvnw test
 
 
       - name: Download and extract swagger-coverage
@@ -123,8 +123,6 @@ jobs:
       - name: Create swagger-coverage-output directory
         run: |
           mkdir -p swagger-coverage-output
-          ls -la
-          http://$HOST:8111/app/rest/
 
       - name: Run Swagger coverage
          # API test coverage report based off of Swagger. Documentation: https://github.com/viclovsky/swagger-coverage
