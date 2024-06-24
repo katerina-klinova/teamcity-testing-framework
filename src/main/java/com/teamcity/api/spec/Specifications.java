@@ -1,6 +1,5 @@
 package com.teamcity.api.spec;
 
-import com.github.viclovsky.swagger.coverage.FileSystemOutputWriter;
 import com.github.viclovsky.swagger.coverage.SwaggerCoverageRestAssured;
 import com.teamcity.api.config.Config;
 import com.teamcity.api.models.BaseModel;
@@ -12,10 +11,7 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
-import java.nio.file.Paths;
 import java.util.List;
-
-import static com.github.viclovsky.swagger.coverage.SwaggerCoverageConstants.OUTPUT_DIRECTORY;
 
 public final class Specifications {
 
@@ -54,7 +50,8 @@ public final class Specifications {
         return new RequestSpecBuilder()
         // Filters for requests and responses used to generate the Swagger Coverage report. Will be shown in Allure report
                 .addFilters(List.of(new RequestLoggingFilter(), new ResponseLoggingFilter(), new AllureRestAssured(),
-                        new SwaggerCoverageRestAssured(new FileSystemOutputWriter(Paths.get("target/" + OUTPUT_DIRECTORY)))))
+                        new SwaggerCoverageRestAssured()))
+                                //new SwaggerCoverageRestAssured(new FileSystemOutputWriter(Paths.get("target/" + OUTPUT_DIRECTORY)))))
                 .setContentType(ContentType.JSON)
                 .setAccept(ContentType.JSON);
     }
