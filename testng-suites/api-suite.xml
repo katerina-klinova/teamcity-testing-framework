@@ -1,18 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="API Suite">
-    <listeners>
-        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
-    </listeners>
     <test name="API Test">
-        <method-selectors>
-            <method-selector>
-                <script language="beanshell">
-                    <![CDATA[
-                    groups.containsKey("Regression")
-            ]]>
-                </script>
-            </method-selector>
-        </method-selectors>
         <classes>
             <class name="com.teamcity.api.ProjectTest"/>
             <class name="com.teamcity.api.RolesTest"/>

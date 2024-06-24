@@ -1,15 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="UI Suite">
     <test name="UI Test">
-        <method-selectors>
-            <method-selector>
-                <script language="beanshell">
-                    <![CDATA[
-                    groups.containsKey("Regression")
-            ]]>
-                </script>
-            </method-selector>
-        </method-selectors>
         <classes>
             <class name="com.teamcity.ui.CreateNewProjectTest"/>
             <class name="com.teamcity.ui.CrateNewBuildConfigTests"/>
