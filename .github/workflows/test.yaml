@@ -82,9 +82,11 @@ jobs:
 
       - name: Set up TeamCity server
         # Server setup (accepting licence, database selection, etc.) in the form of test
-        run: chmod +x ./mvnw --quiet clean test -Dtest=SetupTest#startUpTest
+        run: ./mvnw --quiet clean test -Dtest=SetupTest#startUpTest
 
-      #      - name: Run TeamCity agent
+        #chmod +x
+
+        #      - name: Run TeamCity agent
         # #This step starts a TeamCity agent that is needed to run builds
       #        run: |
       #          docker run -e SERVER_URL=http://$HOST:8111 -u 0 -d --name teamcity-agent \
