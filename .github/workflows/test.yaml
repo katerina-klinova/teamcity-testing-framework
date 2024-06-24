@@ -32,8 +32,6 @@ jobs:
           echo "maxRetryCount=1" >> src/main/resources/config.properties
           cat  src/main/resources/config.properties
 
-      #      - name: Pull Selenoid Chrome
-      #        run: docker pull selenoid/vnc_chrome:119.0
       - name: Pull Selenoid Firefox
         run: docker pull selenoid/vnc:firefox_122.0
 
